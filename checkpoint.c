@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <stdbool.h> 
 
 //-------------CONSTS----------------------------
 #define COURSESLEN 10
@@ -47,6 +48,9 @@ static struct school S;
 void init_db();
 void save_to_binary(const char* filename);
 void display_students();
+void display_menu();
+void show_tasks_list();
+void task_handler(int choice);
 
 
 //---------------FUNCTION SECTION----------------------
@@ -133,6 +137,16 @@ void display_students() {
     }
 }
 
+void display_menu() {
+    printf("========== Menu ==========\n");
+    printf("1. Display all students\n");
+    printf("2. Add a new student (Not implemented yet)\n");
+    printf("3. Update student data (Not implemented yet)\n");
+    printf("4. Delete a student (Not implemented yet)\n");
+    printf("5. Exit\n");
+    printf("==========================\n");
+}
+
 /**
  This function receives a file name, opens it in write binary mode, and writes to
  the data from our data structure.
@@ -150,11 +164,44 @@ void save_to_binary(const char* filename) {
     fclose(file);
 }
 
+void show_tasks_list(){
+    while (true) {
+        display_menu();
+
+        int choice;
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        task_handler(choice);
+    }    
+}
+
+void task_handler(int choice) {
+    switch (choice) {
+        case 1:
+            display_students();
+            break;
+        case 2:
+            printf("Adding a new student (Not implemented yet)\n");
+            break;
+        case 3:
+            printf("Updating student data (Not implemented yet)\n");
+            break;
+        case 4:
+            printf("Deleting a student (Not implemented yet)\n");
+            break;
+        case 5:
+            printf("Exiting the program\n");
+            exit(0);
+        default:
+            printf("Invalid choice. Please select a valid option.\n");
+    }
+}
+
 /*Main function*/
 int main(){
     init_db();
-
-    display_students();
+    show_tasks_list();
 
     return 0;
 }
