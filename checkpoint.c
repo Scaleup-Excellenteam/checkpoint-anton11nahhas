@@ -3,7 +3,7 @@
 #include <stdlib.h>
 
 //-------------CONSTS----------------------------
-#define COURSES 10
+#define COURSESLEN 10
 #define NAMELEN 15
 #define LEVELS 7
 #define CLASSES 20
@@ -15,6 +15,9 @@
 #define OPENFILEERR "Error openning file..\n"
 #define WRITETOFILEERR "Error opening file for writing.\n"
 #define BINARYFILE "school_data.bin"
+#define MY_CONST_ARRAY_SIZE 10
+#define MY_CONST_ARRAY {"Algebra", "Physics", "Biology", "Chemistry", "Physical Educations", "Human Biology", "Core Maths", "Statistis", "French", "English"}
+
 
 //------------STRUCT SECTION-----------------------
 
@@ -27,7 +30,7 @@ struct student {
     char cellphone[CELLLEN];
     int level;
     int class;
-    float grades[COURSES];
+    float grades[COURSESLEN];
     struct student* next;
 };
 
@@ -43,7 +46,7 @@ static struct school S;
 //---------------FUNCTION DECLARATIONS-----------------
 void init_db();
 void save_to_binary(const char* filename);
-void display_first_10_students();
+void display_students();
 
 
 //---------------FUNCTION SECTION----------------------
@@ -103,10 +106,11 @@ void init_db() {
     the attached file, this function is used to ensure that we parsed and populated the 
     data properly and correctly.
 */
-void display_first_10_students() {
+void display_students() {
 
     for (int level = 0; level < LEVELS; level++) {
-        for (int class = 0; class < CLASSES; class++) {
+        const char* myConstArrayData[MY_CONST_ARRAY_SIZE] = MY_CONST_ARRAY;
+        for (int class = 0; class < CLASSES; class++) { 
             struct student* currentStudent = S.DB[level][class];
 
             while (currentStudent != NULL) {
@@ -117,7 +121,8 @@ void display_first_10_students() {
                 printf("Class: %d\n", currentStudent->class);
 
                 printf("Grades: ");
-                for (int i = 0; i < COURSES; i++) {
+                for (int i = 0; i < COURSESLEN; i++) {
+                    printf("%s: ", myConstArrayData[i]);
                     printf("%.2f ", currentStudent->grades[i]);
                 }
                 printf("\n\n");
@@ -149,7 +154,7 @@ void save_to_binary(const char* filename) {
 int main(){
     init_db();
 
-    display_first_10_students();
+    display_students();
 
     return 0;
 }
