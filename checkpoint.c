@@ -99,19 +99,17 @@ void init_db() {
 }
 
 
-/*This function displays the first 10 students from the struct, this is done
-after parsing the data from the file and populating it onto the data structure.
-the function does so by looping through the levels and classes in the linked list.
-This is done until the counter reaches 10, becuase we are only interested in the 
-first ten users, basically this function is used for debug purposes*/
+/*This function displays all students from our struct, which is the data retrieved from
+    the attached file, this function is used to ensure that we parsed and populated the 
+    data properly and correctly.
+*/
 void display_first_10_students() {
-    int count = 0;
 
     for (int level = 0; level < LEVELS; level++) {
         for (int class = 0; class < CLASSES; class++) {
             struct student* currentStudent = S.DB[level][class];
 
-            while (currentStudent != NULL && count < 10) {
+            while (currentStudent != NULL) {
                 printf("First Name: %s\n", currentStudent->first_name);
                 printf("Last Name: %s\n", currentStudent->last_name);
                 printf("Cellphone: %s\n", currentStudent->cellphone);
@@ -125,15 +123,6 @@ void display_first_10_students() {
                 printf("\n\n");
 
                 currentStudent = currentStudent->next;
-                count++;
-
-                if (count >= 10) {
-                    break; // Displayed the first 10 students, exit the loop
-                }
-            }
-
-            if (count >= 10) {
-                break; // Displayed the first 10 students, exit the loop
             }
         }
     }
